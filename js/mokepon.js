@@ -14,7 +14,8 @@ function iniciarJuego() {
 }
 
 function seleccionarMascotaJugador() {
-    let inputHipodoge = document.getElementById(id="hipodogue")
+
+    let inputHipodoge = document.getElementById(id="hipodoge")
     let inputCapipepo = document.getElementById(id="capipepo")
     let inputRatigueya = document.getElementById(id="ratigueya")
     let spanMascotaJugador = document.getElementById("mascota-jugador")
@@ -69,8 +70,18 @@ function ataqueAleatorioEnemigo(){
         ataqueEnemigo = "AGUA"
     } else {
         ataqueEnemigo = "TIERRA"
-    }
-     
+    } 
+
+    crearMensaje()
+}
+
+function crearMensaje(){
+    let sectionMensajes = document.getElementById("mensajes")
+
+    let parrafo = document.createElement("p")
+    parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota del enemigo atacó con " + ataqueEnemigo + "- PENDIENTE 🏆"
+
+    sectionMensajes.appendChild(parrafo)
 }
 
 function aleatorio(min,max) {   

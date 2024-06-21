@@ -1,27 +1,34 @@
-const express = require("express")
+const express = require("express");
+const cors = require("cors");
 
-const app = express()
-
-const jugadores = []
+const app = express();
+const jugadores = [];
 
 class Jugador {
     constructor(id) {
-        this.id = id
+        this.id = id;
     }
 }
 
-app.get("/unirse", (req, res)=> {
-    const id = `${Math.random()}`
+app.use(cors()); // Habilita CORS para todas las rutas
+app.use(express.json()); // Middleware para parsear JSON
 
-    const jugador = new Jugador(id)
+app.get("/unirse", (req, res) => {
+    const id = `${Math.random()}`;
+    const jugador = new Jugador(id);
+    jugadores.push(jugador);
 
-    jugadores.push(jugador)
+    res.setHeader("Access-Control-Allow-Origin", "*");
+    res.send(id);
+});
 
-    res.setHeader("Access-Control-Allow-Origin", "*")
-
-    res.send(id)
-})
+app.post("/mokepon/:jugadorId", (req, res) => {
+    const jugadorId = req.params.jugadorId;
+    const mascotaJugador = req.body.mokepon;
+    console.log(`Jugador ${jugadorId} ha seleccionado ${mascotaJugador}`);
+    res.end();
+});
 
 app.listen(8080, () => {
-    console.log("Servidor funcionando");
-}) 
+    console.log("Servidor funcionando en http://localhost:8080");
+});

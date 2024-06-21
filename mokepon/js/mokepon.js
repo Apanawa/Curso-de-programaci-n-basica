@@ -179,17 +179,21 @@ function iniciarJuego() {
     unirseAlJuego()
 }
 
-function unirseAlJuego () {
-    fetch("http://localhost:8080/unirse",)
+function unirseAlJuego() {
+    fetch("http://localhost:8080/unirse")
         .then(function (res) {
-            if(res.ok) {
+            if (res.ok) {
                 res.text()
-                    .then(function (respuesta){
-                        console.log(respuesta)
+                    .then(function (respuesta) {
+                        console.log(respuesta);
                     })
             }
         })
+        .catch(function (error) {
+            console.error('Error:', error);
+        });
 }
+
 
 function seleccionarMascotaJugador() {
     

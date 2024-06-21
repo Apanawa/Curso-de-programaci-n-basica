@@ -174,33 +174,22 @@ function iniciarJuego() {
     
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
-    
-    
-
-    
     botonReiniciar.addEventListener('click', reiniciarJuego)
-<<<<<<< HEAD
 
     unirseAlJuego()
 }
 
 function unirseAlJuego() {
     fetch("http://localhost:8080/unirse")
-        .then(function (res) {
-            if (res.ok) {
-                res.text()
-                    .then(function (respuesta) {
-                        console.log(respuesta);
-                    })
-            }
-        })
-        .catch(function (error) {
-            console.error('Error:', error);
-        });
-=======
->>>>>>> parent of cb9db94 (API REST)
+    .then(function (res) {
+        if (res.ok) {
+            res.text()
+                .then(function (respuesta){
+                    console.log(respuesta)
+                })
+        }
+    })
 }
-
 
 function seleccionarMascotaJugador() {
     

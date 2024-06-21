@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const express = require("express");
 const cors = require("cors");
 
@@ -32,3 +33,6 @@ app.post("/mokepon/:jugadorId", (req, res) => {
 app.listen(8080, () => {
     console.log("Servidor funcionando en http://localhost:8080");
 });
+=======
+console.log("Hola node");
+>>>>>>> parent of 1b5c973 (servidor web con express.js)

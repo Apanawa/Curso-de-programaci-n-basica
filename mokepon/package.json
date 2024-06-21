@@ -8,9 +8,13 @@
   },
   "author": "Adan Gonzalez",
   "license": "ISC",
+<<<<<<< HEAD
   "description": "",
   "dependencies": {
     "express": "^4.19.2",
     "cors": "^2.8.5"
   }
+=======
+  "description": ""
+>>>>>>> parent of 1b5c973 (servidor web con express.js)
 }

@@ -2,6 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 
+<<<<<<< HEAD
 const app = express();
 const jugadores = [];
 
@@ -36,3 +37,14 @@ app.listen(8080, () => {
 =======
 console.log("Hola node");
 >>>>>>> parent of 1b5c973 (servidor web con express.js)
+=======
+const app = express()
+
+app.get("/", (req, res)=> {
+    res.send("Hola")
+})
+
+app.listen(8080, () => {
+    console.log("Servidor funcionando");
+}) 
+>>>>>>> parent of cb9db94 (API REST)

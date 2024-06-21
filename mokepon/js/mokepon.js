@@ -174,7 +174,12 @@ function iniciarJuego() {
     
     botonMascotaJugador.addEventListener('click', seleccionarMascotaJugador)
 
+    
+    
+
+    
     botonReiniciar.addEventListener('click', reiniciarJuego)
+<<<<<<< HEAD
 
     unirseAlJuego()
 }
@@ -192,6 +197,8 @@ function unirseAlJuego() {
         .catch(function (error) {
             console.error('Error:', error);
         });
+=======
+>>>>>>> parent of cb9db94 (API REST)
 }
 
 

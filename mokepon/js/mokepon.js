@@ -22,6 +22,7 @@ const sectionVerMapa = document.getElementById("ver-mapa")
 const mapa = document.getElementById("mapa")
 
 let jugadorId = null
+let enemigoId = null
 let mokepones = []
 let mokeponesEnemigos = []
 let ataqueJugador =[]
@@ -89,11 +90,11 @@ class Mokepon {
     }
 }
 
-let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/efc1493e-365a-4aea-9726-994facf50ca4.png')
+let hipodoge = new Mokepon('Hipodoge', './assets/mokepons_mokepon_hipodoge_attack.png', 5, './assets/efc1493e-365a-4aea-9726-994facf50ca4.png', enemigo.id)
 
-let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/1fc7ab37-ca43-4f78-811b-e3cb0908c6d0.png')
+let capipepo = new Mokepon('Capipepo', './assets/mokepons_mokepon_capipepo_attack.png', 5, './assets/1fc7ab37-ca43-4f78-811b-e3cb0908c6d0.png', enemigo.id)
 
-let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5, "./assets/2ee88d6a-1fda-4d56-aa4c-45f6bd88564b.png")
+let ratigueya = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5, "./assets/2ee88d6a-1fda-4d56-aa4c-45f6bd88564b.png", enemigo.id)
 
 const HIPODOGE_ATAQUES = [
     { nombre: '💧', id: 'boton-agua' },
@@ -250,11 +251,24 @@ function secuenciaAtaque() {
                 boton.style.background = '#112f58'
                 boton.disabled = true
             }
-            ataqueAleatorioEnemigo()
+            if (ataqueJugador.length === 5) {
+                enviarAtaques()
+            }
+            
         })
     })
-    
+}
 
+function enviarAtaques () {
+    fetch(`http://localhost:8080/mokepon/${jugadorId}/ataques`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            ataques: ataqueJugador
+        })
+    })
 }
 
 function seleccionarMascotaEnemigo(enemigo) {
@@ -383,11 +397,6 @@ function pintarCanvas() {
             revisarColision(mokepon)
         }  
     }) 
-    if (mascotaJugadorObjeto.velocidadX !==0 || mascotaJugadorObjeto.velocidadY !== 0) {
-        revisarColision(hipodogeEnemigo)
-        revisarColision(capipepoEnemigo)
-        revisarColision(ratigueyaEnemigo)
-    }
 }
 
 function enviarPosicion(x, y) {
@@ -505,6 +514,9 @@ function revisarColision (enemigo) {
 
     detenerMovimiento()
     clearInterval(intervalo)
+    console.log("Se detectó una colisión");
+    
+    enemigoId = enemigo.id
     sectionSeleccionarAtaque.style.display = 'flex'
     sectionVerMapa.style.display = "none"
     seleccionarMascotaEnemigo(enemigo)

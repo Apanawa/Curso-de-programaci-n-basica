@@ -23,6 +23,7 @@ const mapa = document.getElementById("mapa")
 
 let jugadorId = null
 let mokepones = []
+let mokeponesEnemigos = []
 let ataqueJugador =[]
 let ataqueEnemigo = []
 let opcionDeMokepones
@@ -376,14 +377,17 @@ function pintarCanvas() {
 
     enviarPosicion(mascotaJugadorObjeto.x ,mascotaJugadorObjeto.y)
 
-    // hipodogeEnemigo.pintarMokepon()
-    // capipepoEnemigo.pintarMokepon()
-    // ratigueyaEnemigo.pintarMokepon()
-    // if (mascotaJugadorObjeto.velocidadX !==0 || mascotaJugadorObjeto.velocidadY !== 0) {
-    //     // revisarColision(hipodogeEnemigo)
-    //     // revisarColision(capipepoEnemigo)
-    //     // revisarColision(ratigueyaEnemigo)
-    // }
+    mokeponesEnemigos.forEach(function (mokepon) {
+        if (mokepon != undefined) {
+            mokepon.pintarMokepon()
+            revisarColision(mokepon)
+        }  
+    }) 
+    if (mascotaJugadorObjeto.velocidadX !==0 || mascotaJugadorObjeto.velocidadY !== 0) {
+        revisarColision(hipodogeEnemigo)
+        revisarColision(capipepoEnemigo)
+        revisarColision(ratigueyaEnemigo)
+    }
 }
 
 function enviarPosicion(x, y) {
@@ -398,11 +402,10 @@ function enviarPosicion(x, y) {
         })
     })
     .then(function (res) {
-        if (res.ok) {
             res.json()
                 .then(function ({ enemigos }) {
                     console.log(enemigos)
-                    enemigos.forEach(function (enemigo) {
+                    mokeponesEnemigos = enemigos.map(function (enemigo) {
                         let mokeponEnemigo = null
                         if (enemigo.mokepon != undefined) { // Agregado para verificar si enemigo.mokepon está definido
                             const mokeponNombre = enemigo.mokepon.nombre || ""
@@ -413,15 +416,13 @@ function enviarPosicion(x, y) {
                             } else if (mokeponNombre === "Ratigueya") {
                                 mokeponEnemigo = new Mokepon('Ratigueya', './assets/mokepons_mokepon_ratigueya_attack.png', 5, "./assets/2ee88d6a-1fda-4d56-aa4c-45f6bd88564b.png")
                             }
-                            
-                            mokeponEnemigo.x = enemigo.x
-                            mokeponEnemigo.y = enemigo.y
-
-                            mokeponEnemigo.pintarMokepon()
                         }
+                        mokeponEnemigo.x = enemigo.x
+                        mokeponEnemigo.y = enemigo.y
+
+                        return mokeponEnemigo
                     })
-                })
-        }   
+                })   
     })
 }
 
